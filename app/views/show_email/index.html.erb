@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<div style="background-color:#eee; padding:5px;font-family:arial">
+
+<% @headers.each do |hdr| %>
+  <% if ['reply-to','to','cc','subject','date','from'].include?(hdr[0].downcase) %>
+   <div >
+     <span style="display:inline-block;width:100px"><%= hdr[0] %> :</span>  
+     <span> <%= hdr[1] %></span>
+   </div>
+  <% end %>
+<% end %>
+</div>
+
+
+<%=raw @content %>
+
+
+<% if @event %>
+<h3> <%= @event['From'] %> invites you to <%= @event['Title'] %></h3>
+
+<div style="background-color:#eee; padding:5px;font-family:arial">
+
+<% @event.keys().each do |k| %>
+   <div >
+     <span style="display:inline-block;width:100px"> <%= k %></span>  
+     <span><%= @event[k] %> </span>
+   </div>
+
+<% end %>
+</div>
+
+<% end %>
