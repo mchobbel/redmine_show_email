@@ -49,7 +49,16 @@ class ShowEmailController < ApplicationController
     cal = cals.first
     e = cal.events.first
         
-    att = e.attendee.map {|a| a.ical_params['CN'].first }.join(", ")
+
+    att = e.attendee.map{|a|
+       x = a.ical_params['CN']
+       nm = ""
+       if x != nil and x.size>0
+          nm = x.first
+       end
+       "#{nm} <#{a.value.to}>"
+     }.join(" , ")
+
     ret =  {
       'From' => e.organizer.ical_params['CN'].first,
       'When' => datestr(e),
